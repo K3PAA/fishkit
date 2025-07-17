@@ -17,9 +17,13 @@ const DescriptionField = ({ control }: Props) => (
     name='description'
     render={({ field }) => (
       <FormItem>
-        <FormLabel className='text-sm font-medium'>Description</FormLabel>
+        <FormLabel>Description</FormLabel>
         <FormControl>
-          <Textarea placeholder='Folder description' {...field} />
+          <Textarea
+            placeholder='Folder description'
+            {...field}
+            className='flex-1'
+          />
         </FormControl>
         <FormMessage />
       </FormItem>

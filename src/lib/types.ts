@@ -20,7 +20,7 @@ export type Folder = {
   title: string
   description: string
   cards: Card[]
-  tags: string[]
+  tags: { id: string; text: string }[]
   visibility: 'public' | 'private'
   isFavorite: boolean
   createdAt: Date

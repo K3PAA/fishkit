@@ -17,7 +17,7 @@ const TitleField = ({ control }: Props) => (
     name='title'
     render={({ field }) => (
       <FormItem>
-        <FormLabel className='text-lg font-medium'>Folder Title</FormLabel>
+        <FormLabel>Folder Title</FormLabel>
 
         <FormControl>
           <Input placeholder='Folder title' {...field} />

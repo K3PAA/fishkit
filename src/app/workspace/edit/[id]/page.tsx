@@ -14,10 +14,15 @@ export default function page({ params }: { params: { id: string } }) {
     <>
       <section>
         <Header>
-          <h1 className='text-2xl font-medium'>Edit Folder</h1>
-          <Button variant='secondary' asChild>
-            <Link href={`/workspace`}>Back to workspace</Link>
-          </Button>
+          <h1 className='text-2xl font-medium'>Edit lesson content</h1>
+          <div className='flex gap-2'>
+            <Button className='' variant='destructive'>
+              Delete lesson
+            </Button>
+            <Button variant='secondary' asChild>
+              <Link href={`/workspace`}>Back to workspace</Link>
+            </Button>
+          </div>
         </Header>
         <main className='px-4'>
           <EditFolderForm folder={folder} />

@@ -12,4 +12,21 @@ export const folderFormSchema = z.object({
   visibility: z.enum(['public', 'private'], {
     message: 'Select visibility.',
   }),
+  tags: z.array(z.object({ id: z.string(), text: z.string() })),
+  cards: z.array(
+    z.object({
+      front: {
+        title: z
+          .string()
+          .min(1, { message: 'Title must be at least 1 characters.' }),
+        example: z.string().optional(),
+        definition: z.string().optional(),
+      },
+      back: {
+        title: z.string().min(2),
+        example: 'Piekliśmy pianki nad ogniskiem.',
+        definition: 'Ogień rozpalony na kempingu.',
+      },
+    }),
+  ),
 })
