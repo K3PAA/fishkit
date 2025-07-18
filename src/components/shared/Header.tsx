@@ -12,6 +12,10 @@ const navItems = [
     label: 'Workspace',
     href: '/workspace',
   },
+  {
+    label: 'Profile',
+    href: '/profile',
+  },
 ]
 
 export default function Header() {
@@ -21,6 +25,7 @@ export default function Header() {
       className='grid grid-cols-[1fr_300px] border-x border-b'
     >
       <nav className=''>
+        <Link href='/'></Link>
         <ul className='flex items-center gap-4'>
           {navItems.map((item) => (
             <li key={item.href} className='h-nav-height'>

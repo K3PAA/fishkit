@@ -24,7 +24,7 @@ export default function CardsPreview({
         )}
       </p>
       <div
-        className='grid-even mt-4 grid'
+        className='grid-even mt-4 grid gap-0.5'
         style={{ '--size': '120px' } as React.CSSProperties}
       >
         {cards.map((card, i) => {
@@ -32,11 +32,9 @@ export default function CardsPreview({
           return (
             <p
               key={`${card.id}-${i}`}
-              className={cn('text-md p-2', {
-                'bg-primary/10 dark:bg-primary/100 dark:text-white':
-                  i % 2 === 0,
-                'bg-primary/20 dark:bg-primary/90 dark:text-white': i % 2 === 1,
-              })}
+              className={cn(
+                'text-md bg-primary/10 dark:bg-primary/100 p-2 text-center dark:text-white',
+              )}
             >
               {card.front.title.slice(0, 13)}
               {card.front.title.length > 13 && '...'}

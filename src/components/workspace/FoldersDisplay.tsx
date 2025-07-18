@@ -48,8 +48,15 @@ export default function FoldersDisplay() {
               <section className='mt-4 flex items-center justify-between gap-2'>
                 <p>Author: {item.author}</p>
                 <div className='flex gap-2'>
-                  <Button variant='destructive'>Delete</Button>
-                  <EditButton isAuthor={item.author === 'jacob'} id={item.id} />
+                  {item.author === 'jacob' ? (
+                    <>
+                      <Button variant='destructive'>Delete</Button>
+                      <EditButton id={item.id} />
+                    </>
+                  ) : (
+                    <Button variant='destructive'>Remove from workspace</Button>
+                  )}
+
                   <Button>Start Lesson</Button>
                 </div>
               </section>

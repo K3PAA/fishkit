@@ -4,6 +4,7 @@ import EditFolderForm from '@/components/workspace/edit/EditFolderForm'
 import Header from '@/components/workspace/shared/Header'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import CardsDisplay from '@/components/workspace/edit/CardsDisplay'
 
 export default function page({ params }: { params: { id: string } }) {
   const folder = mockData.find((folder) => folder.id === Number(params.id))
@@ -24,8 +25,10 @@ export default function page({ params }: { params: { id: string } }) {
             </Button>
           </div>
         </Header>
-        <main className='px-4'>
+        <main className='grid gap-8 px-4'>
           <EditFolderForm folder={folder} />
+
+          <CardsDisplay />
         </main>
       </section>
 

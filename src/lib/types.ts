@@ -5,9 +5,11 @@ export type CardFace = {
   title: string
   example: string
   definition: string
+  synonym?: string[]
+  antonym?: string[]
 }
 
-export type Card = {
+export type CardT = {
   id: number
   front: CardFace
   back: CardFace
@@ -19,7 +21,7 @@ export type Folder = {
   id: number
   title: string
   description: string
-  cards: Card[]
+  cards: CardT[]
   tags: { id: string; text: string }[]
   visibility: 'public' | 'private'
   isFavorite: boolean

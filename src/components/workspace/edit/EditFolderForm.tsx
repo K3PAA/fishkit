@@ -7,10 +7,10 @@ import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
 import { Folder, FolderSchemaT } from '@/lib/types'
 import { folderFormSchema } from '@/lib/validation/folder/edit-folder'
-import DescriptionField from './folder/DescriptionField'
-import TagsField from './folder/TagsField'
-import TitleField from './folder/TitleField'
-import PrivateField from './folder/VisibilityField'
+import DescriptionField from './form/folder/DescriptionField'
+import TagsField from './form/folder/TagsField'
+import TitleField from './form/folder/TitleField'
+import PrivateField from './form/folder/VisibilityField'
 import { FileCheck } from 'lucide-react'
 
 type EditFolderFormProps = {
@@ -31,23 +31,21 @@ export default function EditFolderForm({ folder }: EditFolderFormProps) {
 
   return (
     <Form {...form}>
-      <form action={() => {}}>
-        <section className='mt-4 grid gap-4 md:grid-cols-2'>
-          <div className='flex flex-col gap-4'>
-            <TitleField control={form.control} />
-            <TagsField
-              control={form.control}
-              tagsValue={folder.tags}
-              setValue={form.setValue}
-            />
-          </div>
-          <div className='flex h-full w-full flex-col gap-4'>
-            <DescriptionField control={form.control} />
-            <PrivateField control={form.control} />
-          </div>
-        </section>
+      <h2 className='my-4 text-3xl'>Update Folder Info</h2>
+      <form action={() => {}} className='grid gap-4'>
+        <div className='grid gap-4 md:grid-cols-2'>
+          <TitleField control={form.control} />
+          <PrivateField control={form.control} />
+        </div>
 
-        <Button type='submit' className='mt-4 capitalize'>
+        <DescriptionField control={form.control} />
+        <TagsField
+          control={form.control}
+          tagsValue={folder.tags}
+          setValue={form.setValue}
+        />
+
+        <Button type='submit' className='mt-4 ml-auto capitalize'>
           save changes <FileCheck />
         </Button>
       </form>
