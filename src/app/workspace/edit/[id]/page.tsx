@@ -1,5 +1,4 @@
 import Sidebar from '@/components/workspace/Sidebar'
-import { mockData } from '@/lib/mock-data'
 import EditFolderForm from '@/components/workspace/edit/EditFolderForm'
 import Header from '@/components/workspace/shared/Header'
 import Link from 'next/link'
@@ -7,9 +6,7 @@ import { Button } from '@/components/ui/button'
 import CardsDisplay from '@/components/workspace/edit/CardsDisplay'
 
 export default function page({ params }: { params: { id: string } }) {
-  const folder = mockData.find((folder) => folder.id === Number(params.id))
-
-  if (!folder) return <main>No folder found</main>
+  return <main>No folder found</main>
 
   return (
     <>

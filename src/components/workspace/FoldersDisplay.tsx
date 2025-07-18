@@ -6,13 +6,14 @@ import {
   AccordionContent,
   AccordionItem,
 } from '@/components/ui/accordion'
-import { mockData } from '@/lib/mock-data'
+
 import FavoriteButton from '../shared/FavoriteButton'
 import CardsPreview from './CardsPreview'
 import { Button } from '../ui/button'
 import EditButton from './EditButton'
 
 export default function FoldersDisplay() {
+  return <div>FoldersDisplay</div>
   return (
     <main>
       <Accordion

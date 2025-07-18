@@ -1,12 +1,13 @@
 import z from 'zod'
 import { folderFormSchema } from './validation/folder/edit-folder'
+import { editCardSchema } from './validation/card/edit-card'
 
 export type CardFace = {
   title: string
   example: string
   definition: string
-  synonym?: string[]
-  antonym?: string[]
+  synonym: string[]
+  antonym: string[]
 }
 
 export type CardT = {
@@ -32,3 +33,4 @@ export type Folder = {
 export type MockData = Folder[]
 
 export type FolderSchemaT = z.infer<typeof folderFormSchema>
+export type EditCardSchemaT = z.infer<typeof editCardSchema>
