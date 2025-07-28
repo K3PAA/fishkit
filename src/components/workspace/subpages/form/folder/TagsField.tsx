@@ -13,12 +13,12 @@ import { Control, UseFormSetValue } from 'react-hook-form'
 
 type Props = {
   control: Control<FolderSchemaT>
-  tagsValue: { id: string; text: string }[]
+  tags: Tag[]
+  setTags: (tags: Tag[]) => void
   setValue: UseFormSetValue<FolderSchemaT>
 }
 
-export default function TagsField({ control, tagsValue, setValue }: Props) {
-  const [tags, setTags] = useState<Tag[]>(tagsValue)
+export default function TagsField({ control, tags, setTags, setValue }: Props) {
   const [activeTagIndex, setActiveTagIndex] = useState<number | null>(null)
 
   return (
@@ -51,8 +51,7 @@ export default function TagsField({ control, tagsValue, setValue }: Props) {
                   },
                 }}
                 setTags={(newTags) => {
-                  setTags(newTags)
-                  setValue('tags', newTags as [Tag, ...Tag[]])
+                  setTags(newTags as Tag[])
                 }}
                 activeTagIndex={activeTagIndex}
                 setActiveTagIndex={setActiveTagIndex}

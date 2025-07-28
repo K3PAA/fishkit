@@ -1,5 +1,5 @@
 import z from 'zod'
-import { folderFormSchema } from './validation/folder/edit-folder'
+import { folderFormSchema } from './validation/folder/folder'
 import { editCardSchema } from './validation/card/edit-card'
 
 export type CardFace = {

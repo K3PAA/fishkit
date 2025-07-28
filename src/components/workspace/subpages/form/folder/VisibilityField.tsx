@@ -17,13 +17,21 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { FolderSchemaT } from '@/lib/types'
-import { Control } from 'react-hook-form'
+import { Control, UseFormSetValue } from 'react-hook-form'
 
 type Props = {
   control: Control<FolderSchemaT>
+  setVisibility: (visibility: 'public' | 'private') => void
+  visibility: 'public' | 'private'
+  setValue: UseFormSetValue<FolderSchemaT>
 }
 
-export default function VisibilityField({ control }: Props) {
+export default function VisibilityField({
+  control,
+  setVisibility,
+  visibility,
+  setValue,
+}: Props) {
   const id = useId()
   return (
     <FormField
@@ -33,7 +41,15 @@ export default function VisibilityField({ control }: Props) {
         <FormItem>
           <FormLabel>Visiblity of lesson</FormLabel>
           <FormControl>
-            <Select value={field.value} onValueChange={field.onChange} required>
+            <Select
+              value={visibility}
+              onValueChange={(value) => {
+                setVisibility(value as 'public' | 'private')
+                field.onChange(value)
+                setValue('visibility', value as 'public' | 'private')
+              }}
+              required
+            >
               <SelectTrigger id={id} className='w-full'>
                 <SelectValue placeholder='Select visibility' />
               </SelectTrigger>

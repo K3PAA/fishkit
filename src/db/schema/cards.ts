@@ -1,35 +1,27 @@
-import { pgTable } from 'drizzle-orm/pg-core'
-import * as t from 'drizzle-orm/pg-core'
-import { user } from './users'
-import { lesson } from './lessons'
-import { timestamps } from '../columns/helpers'
+import { pgTable, uuid, varchar, timestamp } from 'drizzle-orm/pg-core'
+import { lessonsTable } from './lessons'
 
-export const cardFace = pgTable('card_face', {
-  id: t.serial().notNull().primaryKey(),
-  title: t.varchar().notNull(),
-  description: t.text(),
-  example: t.text(),
-  synonyms: t.varchar().array(),
-  antonyms: t.varchar().array(),
-})
+export const cardsTable = pgTable('cards', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  lessonId: uuid('lesson_id')
+    .notNull()
+    .references(() => lessonsTable.id),
 
-export const card = pgTable('cards', {
-  id: t.varchar().notNull().primaryKey(),
-  userId: t
-    .varchar('user_id')
+  frontWord: varchar('front_word').notNull(),
+  frontTranslation: varchar('front_translation'),
+  frontExample: varchar('front_example'),
+  frontSynonyms: varchar('front_synonyms').array().default([]),
+  frontAntonyms: varchar('front_antonyms').array().default([]),
+
+  backWord: varchar('back_word').notNull(),
+  backTranslation: varchar('back_translation'),
+  backExample: varchar('back_example'),
+  backSynonyms: varchar('back_synonyms').array().default([]),
+  backAntonyms: varchar('back_antonyms').array().default([]),
+
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at')
     .notNull()
-    .references(() => user.id),
-  lessonId: t
-    .varchar('lesson_id')
-    .notNull()
-    .references(() => lesson.id),
-  frontId: t
-    .integer('front_id')
-    .notNull()
-    .references(() => cardFace.id),
-  backId: t
-    .integer('back_id')
-    .notNull()
-    .references(() => cardFace.id),
-  ...timestamps,
+    .defaultNow()
+    .$onUpdate(() => new Date()),
 })

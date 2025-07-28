@@ -1,95 +1,62 @@
+import {
+  usersTable,
+  bookmarksTable,
+  entriesTable,
+  favoritesTable,
+  settingsTalbe,
+} from './users'
+
+import { lessonsTable } from './lessons'
+import { cardsTable } from './cards'
 import { relations } from 'drizzle-orm'
-import { user, userPreferences, userBookmarks, userEntries } from './users'
-import { lesson, lessonTags } from './lessons'
-import { card, cardFace } from './cards'
 
-// User relations
-export const userRelations = relations(user, ({ many, one }) => ({
-  preferences: one(userPreferences, {
-    fields: [user.id],
-    references: [userPreferences.userId],
-  }),
-  bookmarks: many(userBookmarks),
-  entries: many(userEntries),
-  lessons: many(lesson),
-  cards: many(card),
+export const usersRelations = relations(usersTable, ({ one, many }) => ({
+  settings: one(settingsTalbe),
+  lessons: many(lessonsTable),
+  entries: many(entriesTable),
+  favorites: many(favoritesTable),
+  bookmarks: many(bookmarksTable),
 }))
 
-// User Preferences relation
-export const userPreferencesRelations = relations(
-  userPreferences,
-  ({ one }) => ({
-    user: one(user, {
-      fields: [userPreferences.userId],
-      references: [user.id],
-    }),
-  }),
-)
-
-// User Bookmarks relation
-export const userBookmarksRelations = relations(userBookmarks, ({ one }) => ({
-  user: one(user, {
-    fields: [userBookmarks.userId],
-    references: [user.id],
-  }),
-  lesson: one(lesson, {
-    fields: [userBookmarks.lessonId],
-    references: [lesson.id],
+export const settingsRelations = relations(settingsTalbe, ({ one }) => ({
+  user: one(usersTable, {
+    fields: [settingsTalbe.userId],
+    references: [usersTable.id],
   }),
 }))
 
-// User Entries relation
-export const userEntriesRelations = relations(userEntries, ({ one }) => ({
-  user: one(user, {
-    fields: [userEntries.userId],
-    references: [user.id],
-  }),
-  card: one(card, {
-    fields: [userEntries.cardId],
-    references: [card.id],
-  }),
-  lesson: one(lesson, {
-    fields: [userEntries.lessonId],
-    references: [lesson.id],
+export const favoritesRelations = relations(favoritesTable, ({ one }) => ({
+  user: one(usersTable, {
+    fields: [favoritesTable.userId],
+    references: [usersTable.id],
   }),
 }))
 
-// Lesson relations
-export const lessonRelations = relations(lesson, ({ one, many }) => ({
-  user: one(user, {
-    fields: [lesson.userId],
-    references: [user.id],
-  }),
-  tags: many(lessonTags),
-  cards: many(card),
-}))
-
-// Lesson Tags relation
-export const lessonTagsRelations = relations(lessonTags, ({ one }) => ({
-  lesson: one(lesson, {
-    fields: [lessonTags.lessonId],
-    references: [lesson.id],
+export const bookmarksRelations = relations(bookmarksTable, ({ one }) => ({
+  user: one(usersTable, {
+    fields: [bookmarksTable.userId],
+    references: [usersTable.id],
   }),
 }))
 
-// Card relations
-export const cardRelations = relations(card, ({ one }) => ({
-  user: one(user, {
-    fields: [card.userId],
-    references: [user.id],
-  }),
-  lesson: one(lesson, {
-    fields: [card.lessonId],
-    references: [lesson.id],
-  }),
-  front: one(cardFace, {
-    fields: [card.frontId],
-    references: [cardFace.id],
-  }),
-  back: one(cardFace, {
-    fields: [card.backId],
-    references: [cardFace.id],
+export const entriesRelations = relations(entriesTable, ({ one }) => ({
+  user: one(usersTable, {
+    fields: [entriesTable.userId],
+    references: [usersTable.id],
   }),
 }))
 
-// CardFace relations (no direct relations needed, but could add cards referencing this face)
+export const lessonsRelations = relations(lessonsTable, ({ one, many }) => ({
+  user: one(usersTable, {
+    fields: [lessonsTable.userId],
+    references: [usersTable.id],
+  }),
+  cards: many(cardsTable),
+}))
+
+export const cardsRelations = relations(cardsTable, ({ one, many }) => ({
+  lesson: one(lessonsTable, {
+    fields: [cardsTable.lessonId],
+    references: [lessonsTable.id],
+  }),
+}))

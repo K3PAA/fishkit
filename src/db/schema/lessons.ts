@@ -1,27 +1,22 @@
-import { pgEnum, pgTable } from 'drizzle-orm/pg-core'
-import * as t from 'drizzle-orm/pg-core'
-import { user } from './users'
-import { timestamps } from '../columns/helpers'
+import { pgEnum, pgTable, timestamp, uuid, varchar } from 'drizzle-orm/pg-core'
+import { usersTable } from './users'
 
 export const visibilityEnum = pgEnum('visibility', ['public', 'private'])
 
-export const lesson = pgTable('lessons', {
-  id: t.varchar().notNull().primaryKey(),
-  userId: t
-    .varchar('user_id')
+export const lessonsTable = pgTable('lessons', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  userId: varchar('user_id')
     .notNull()
-    .references(() => user.id),
-  title: t.varchar().notNull(),
-  description: t.text(),
-  visibility: visibilityEnum().default('public'),
-  ...timestamps,
-})
+    .references(() => usersTable.id),
 
-export const lessonTags = pgTable('lesson_tags', {
-  id: t.serial().notNull().primaryKey(),
-  lessonId: t
-    .varchar('lesson_id')
+  title: varchar('title').notNull(),
+  description: varchar('description'),
+  tags: varchar('tags').array().default([]),
+  visibility: visibilityEnum('visibility').default('public').notNull(),
+
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at')
     .notNull()
-    .references(() => lesson.id),
-  tag: t.varchar().notNull(),
+    .defaultNow()
+    .$onUpdate(() => new Date()),
 })

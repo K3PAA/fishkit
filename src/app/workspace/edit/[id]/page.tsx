@@ -1,9 +1,9 @@
 import Sidebar from '@/components/workspace/Sidebar'
-import EditFolderForm from '@/components/workspace/edit/EditFolderForm'
+import EditFolderForm from '@/components/workspace/subpages/FolderForm'
 import Header from '@/components/workspace/shared/Header'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import CardsDisplay from '@/components/workspace/edit/CardsDisplay'
+import CardsDisplay from '@/components/workspace/subpages/CardsDisplay'
 
 export default function page({ params }: { params: { id: string } }) {
   return <main>No folder found</main>

@@ -2,19 +2,24 @@ import Link from 'next/link'
 import ProfileAvatar from '@/components/shared/ProfileAvatar'
 import Wrapper from '@/components/shared/Wrapper'
 import Theme from './Theme'
+import AuthButtons from './auth/AuthButtons'
+import NavLinkItem from './NavLinkItem'
 
 const navItems = [
   {
     label: 'Explore',
     href: '/explore',
+    requiresAuth: false,
   },
   {
     label: 'Workspace',
     href: '/workspace',
+    requiresAuth: false,
   },
   {
     label: 'Profile',
     href: '/profile',
+    requiresAuth: true,
   },
 ]
 
@@ -29,19 +34,14 @@ export default function Header() {
         <ul className='flex items-center gap-4'>
           {navItems.map((item) => (
             <li key={item.href} className='h-nav-height'>
-              <Link href={item.href} className='block h-full px-4 text-lg'>
-                <span className='grid h-full place-content-center'>
-                  {item.label}
-                </span>
-              </Link>
+              <NavLinkItem it={item.label} {...item} />
             </li>
           ))}
         </ul>
       </nav>
 
       <section className='flex items-center justify-end gap-2 px-4'>
-        <p className='text-lg font-bold'>Jacob</p>
-        <ProfileAvatar />
+        <AuthButtons />
         <Theme />
       </section>
     </Wrapper>
